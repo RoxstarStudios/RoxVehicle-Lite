@@ -1,0 +1,309 @@
+{
+    "ElevationLoss": true, // enables a 3% (adjustable) every 1000ft power loss, top of mt chiliad is about a 7.8% loss
+    "ElevationLossPercentage": 3, // percentage of power loss per 1k feet (default:3%)
+    "ElevationLossDisplay": true, // adds a display that shows current elevation loss percentage (hold left shift for it to show a percent value)
+    "EngineDisplay": true, // toggles a display that shows engine stats in bar form (hold left shift to get the values in numbers aswell)
+    "DisableMuscleCarWheelie": true, // disables wheelies for muscle cars in this script
+    "EnableEngineEMSMods": true, // enables the engine ems mods from actually effecting horsepower/torque
+    "Vehicles": {
+        "BUFFALO4": {
+            "Transmission": {
+                "GearRatios": [
+                    -3.317,
+                    4.714,
+                    3.143,
+                    2.106,
+                    1.667,
+                    1.285,
+                    1.0,
+                    0.839,
+                    0.667
+                ],
+                "TopSpeedMPH": 203
+            },
+            "Engine": {
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 297,
+                    "1500": 445.5,
+                    "2000": 519.8,
+                    "2500": 564.3,
+                    "3000": 594,
+                    "3500": 615.3,
+                    "4000": 631.1,
+                    "4500": 643.5,
+                    "4800": 649.7,
+                    "5000": 648.7,
+                    "5500": 636.9,
+                    "6000": 612.2,
+                    "6200": 598.6
+                },
+                "EngineConfig": {
+                    "MaxRPM": 6200,
+                    "IdleRPM": 700
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 14.5,
+                "MaxVacuum": 7.25,
+                "BoostRate": 0.5,
+                "VacuumRate": 3.0
+            }
+        },
+        "GAUNTLET4": {
+            "Transmission": {
+                "GearRatios": [
+                    -2.9,
+                    2.97,
+                    2.1,
+                    1.46,
+                    1.0,
+                    0.74,
+                    0.5
+                ],
+                "TopSpeedMPH": 203
+            },
+            "Engine": {
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 355.3,
+                    "1500": 533,
+                    "2000": 621.8,
+                    "2500": 675.1,
+                    "3000": 710.7,
+                    "3500": 736.1,
+                    "4000": 755.1,
+                    "4500": 769.9,
+                    "5000": 764.5,
+                    "5500": 748.2,
+                    "6000": 721.2,
+                    "6500": 667.3
+                },
+                "EngineConfig": {
+                    "MaxRPM": 6500,
+                    "IdleRPM": 700
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 14.5,
+                "MaxVacuum": 7.25,
+                "BoostRate": 0.5,
+                "VacuumRate": 3.0
+            }
+        },
+        "BANSHEE": {
+            "Transmission": {
+                "GearRatios": [
+                    -2.9,
+                    2.26,
+                    1.58,
+                    1.19,
+                    1.0,
+                    0.77,
+                    0.5
+                ],
+                "TopSpeedMPH": 185 
+            },
+            "Engine": {
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 272.9,
+                    "1500": 409.3,
+                    "2000": 477.5,
+                    "2500": 518.4,
+                    "3000": 545.7,
+                    "3500": 565.2,
+                    "4000": 579.8,
+                    "4500": 591.2,
+                    "5000": 600.3,
+                    "5500": 590.9,
+                    "6000": 562.8,
+                    "6400": 520.8
+                },
+                "EngineConfig": {
+                    "MaxRPM": 6400,
+                    "IdleRPM": 600
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 20.0,
+                "MaxVacuum": 8.25,
+                "BoostRate": 0.5,
+                "VacuumRate": 3.0
+            }
+        },
+        "FR36": {
+            "Transmission": {
+                "GearRatios": [
+                    -3.916,
+                    3.841,
+                    2.352,
+                    1.529,
+                    1.0,
+                    0.839
+                ],
+                "TopSpeedMPH": 192
+            },
+            "Engine": {
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 122.3,
+                    "1500": 183.6,
+                    "2000": 214.2,
+                    "2500": 232.5,
+                    "3000": 244.8,
+                    "3500": 253.5,
+                    "4000": 260,
+                    "4500": 265.1,
+                    "5000": 267.4,
+                    "5500": 263.9,
+                    "6000": 256.3,
+                    "6500": 244.9,
+                    "7000": 229.4,
+                    "7500": 192.7
+                },
+                "EngineConfig": {
+                    "MaxRPM": 7500,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 20.0,
+                "MaxVacuum": 8.25,
+                "BoostRate": 0.5,
+                "VacuumRate": 3.0
+            }
+        },
+        "PHANTOM3": {
+            "Transmission": {
+                "GearRatios": [
+                    -6.11,
+                    6.38,
+                    3.73,
+                    2.28,
+                    1.43,
+                    1.00,
+                    0.79
+                ],
+                "TopSpeedMPH": 115
+            },
+            "Engine": {
+                "TorqueCurve": {
+                    "0": 0,
+                    "300": 1254.5,
+                    "500": 1447.5,
+                    "800": 1544.0,
+                    "900": 1640.5,
+                    "1000": 1679.1,
+                    "1200": 1814.19,
+                    "1400": 1930.0,
+                    "1550": 1930.0,
+                    "1600": 1912.62,	
+                    "1650": 1881.75,	
+                    "1700": 1864.37,	
+                    "1750": 1798.76,	
+                    "1800": 1727.35,	
+                    "1900": 1657.87,	
+                    "2100": 1530.49,	
+                    "3000": 0.0
+                },
+                "EngineConfig": {
+                    "MaxRPM": 2500,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 30.0,
+                "MaxVacuum": 10.5,
+                "BoostRate": 1.2,
+                "VacuumRate": 2.0
+            }
+        },
+        "ELEGY2": {
+            "Transmission": {
+                "Name": "",
+                "Description": "",
+                "GearRatios": [
+                    -3.383,
+                    4.056,
+                    2.301,
+                    1.595,
+                    1.248,
+                    1.001,
+                    0.796
+                ],
+                "TopSpeedMPH": 197
+            },
+            "Engine": {
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 213.5,
+                    "1500": 320.2,
+                    "2000": 373.6,
+                    "2500": 405.6,
+                    "3000": 427,
+                    "3500": 429.8,
+                    "4000": 433.6,
+                    "4500": 433.6,
+                    "5000": 432.3,
+                    "5500": 431,
+                    "6000": 415.5,
+                    "6500": 386.8,
+                    "7000": 323.2
+                },
+                "EngineConfig": {
+                    "MaxRPM": 7000,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 20.0,
+                "MaxVacuum": 8.25,
+                "BoostRate": 0.5,
+                "VacuumRate": 3.0
+            }
+        },
+        "RUINER4": {
+            "Transmission": {
+                "Name": "",
+                "Description": "",
+                "GearRatios": [
+                    -2.9,
+                    2.66,
+                    1.78,
+                    1.3,
+                    1.9,
+                    0.74,
+                    0.5
+                ],
+                "TopSpeedMPH": 181
+            },
+            "Engine": {
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 164.8,
+                    "1500": 247.3,
+                    "2000": 288.5,
+                    "2500": 313.2,
+                    "3000": 329.7,
+                    "3500": 341.4,
+                    "4000": 350.3,
+                    "4500": 346.5,
+                    "5000": 335.1,
+                    "5500": 310.5,
+                    "6000": 256.1
+                },
+                "EngineConfig": {
+                    "MaxRPM": 6000,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 14.5,
+                "MaxVacuum": 7.25,
+                "BoostRate": 0.5,
+                "VacuumRate": 3.0
+            }
+        }
+    }
+}

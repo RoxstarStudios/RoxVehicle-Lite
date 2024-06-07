@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+		<TargetFramework>net452</TargetFramework>
+		<OutputType>Library</OutputType>
+		<AssemblyName>RoxVehicle-Lite.Client.net</AssemblyName>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<LangVersion>10.0</LangVersion>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugType>embedded</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>..\RoxVehicle-Lite.Build\Build\Client\</OutputPath>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+    <ItemGroup>
+
+        <Reference Include="Microsoft.CSharp" />
+    
+        <PackageReference Include="CitizenFX.Core.Client" Version="1.0.8385">
+            <ExcludeAssets>runtime</ExcludeAssets>
+        </PackageReference>
+
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>..\Dependencies\Newtonsoft.Json.dll</HintPath>
+            <Private>true</Private>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+		<None Update="ResourceFiles/*.jsonc">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="ResourceFiles/fxmanifest.lua">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+    </ItemGroup>
+	<PropertyGroup>
+	<PostBuildEvent>
+		if not exist "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\" mkdir "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\"
+		if not exist "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\Client\" mkdir "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\Client\"
+		xcopy /Y "$(SolutionDir)RoxVehicle-Lite.Build\Build\Client\net452\ResourceFiles\fxmanifest.lua" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\"
+		xcopy /Y "$(SolutionDir)RoxVehicle-Lite.Build\Build\Client\net452\ResourceFiles\config.jsonc" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\"
+		xcopy /Y "$(SolutionDir)RoxVehicle-Lite.Build\Build\Client\net452\RoxVehicle-Lite.Client.net.dll" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\Client\"
+		xcopy /Y "$(SolutionDir)Dependencies\Newtonsoft.Json.dll" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\Client\"
+
+	</PostBuildEvent>
+    </PropertyGroup>
+</Project>
