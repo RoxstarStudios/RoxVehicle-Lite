@@ -100,6 +100,11 @@ namespace RoxVehicle_Lite.Client.Transmission
         {
             float rpmInternal = GetVehicleRPM(vehicle, vehicleData.Engine.EngineConfig.IdleRPM, vehicleData.Engine.EngineConfig.MaxRPM);
             float torque = CalculateTorque(rpmInternal, vehicleData.Engine.TorqueCurve);
+            if (scriptConfig.EnableEngineDamageEffectsPower)
+            {
+                float damageValue = Map(Math.Max(0.0f, GetVehicleEngineHealth(vehicle.Handle)), 0.0f, 1000.0f, scriptConfig.EnableEngineDamageMaxPowerPercent/100, 1.0f);
+                torque = torque * damageValue;
+            }
             int tuningLevel = GetVehicleMod(vehicle.Handle, 11);
             float tuningMultiplier = 0.0f;
             if (tuningLevel > -1)

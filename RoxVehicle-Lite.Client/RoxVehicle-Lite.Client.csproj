@@ -43,6 +43,7 @@
 		xcopy /Y "$(SolutionDir)RoxVehicle-Lite.Build\Build\Client\net452\RoxVehicle-Lite.Client.net.dll" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\Client\"
 		xcopy /Y "$(SolutionDir)Dependencies\Newtonsoft.Json.dll" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\Client\"
 		xcopy /Y "$(SolutionDir)\LICENSE" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\"
+		xcopy /Y "$(SolutionDir)\README.md" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\"
 
 	</PostBuildEvent>
     </PropertyGroup>

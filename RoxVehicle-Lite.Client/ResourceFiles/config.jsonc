@@ -5,7 +5,9 @@
     "EngineDisplay": true, // toggles a display that shows engine stats in bar form (hold left shift to get the values in numbers aswell)
     "DisableMuscleCarWheelie": true, // disables wheelies for muscle cars in this script
     "EnableEngineEMSMods": true, // enables the engine ems mods from actually effecting horsepower/torque
-    "Vehicles": {
+    "EnableEngineDamageEffectsPower": true, // allows engine damage to effect vehicle power
+    "EnableEngineDamageMiniumPercent": 25, // minimum percentage when engine damage effecting power is enabled
+     "Vehicles": {
         "BUFFALO4": {
             "Transmission": {
                 "GearRatios": [
@@ -222,7 +224,7 @@
         "ELEGY2": {
             "Transmission": {
                 "Name": "",
-                "Description": "",
+                "Description": "", // unused
                 "GearRatios": [
                     -3.383,
                     4.056,
@@ -265,8 +267,8 @@
         },
         "RUINER4": {
             "Transmission": {
-                "Name": "",
-                "Description": "",
+                "Name": "", // unused
+                "Description": "", // unused
                 "GearRatios": [
                     -2.9,
                     2.66,
@@ -303,6 +305,53 @@
                 "MaxVacuum": 7.25,
                 "BoostRate": 0.5,
                 "VacuumRate": 3.0
+            }
+        },
+        "JESTER3": {
+            "Transmission": {
+                "Name": "1993 Supra A80 Transmission", // unused
+                "Description": "This transmission is based on the 1993 Toyota Supra A80 transmission", // unused
+                "GearRatios": [
+                    -3.267,
+                    3.827,
+                    2.36,
+                    1.685,
+                    1.313,
+                    1.0,
+                    0.793
+                ],
+                "TopSpeedMPH": 180
+            },
+            "Engine": {
+                "Name": "1993 Supra A80 2JZ-GTE Engine", // unused
+                "Description": "This engine is based on the 1993 Toyota Supra A80 2JZ-GTE engine", // unused
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 148.7,
+                    "1500": 223,
+                    "2000": 260.2,
+                    "2500": 282.4,
+                    "3000": 297.3,
+                    "3500": 308,
+                    "4000": 315.9,
+                    "4500": 322.1,
+                    "4800": 325.2,
+                    "5000": 324,
+                    "5500": 310.2,
+                    "6000": 285.2,
+                    "6500": 259.1,
+                    "6900": 212.3
+                },
+                "EngineConfig": {
+                    "MaxRPM": 6900,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 30.0,
+                "MaxVacuum": 6.0,
+                "BoostRate": 0.7,
+                "VacuumRate": 2.0
             }
         }
     }

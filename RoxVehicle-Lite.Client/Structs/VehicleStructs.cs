@@ -16,6 +16,8 @@ namespace RoxVehicle_Lite.Client.Structs
             public bool EngineDisplay;
             public bool DisableMuscleCarWheelie;
             public bool EnableEngineEMSMods;
+            public bool EnableEngineDamageEffectsPower;
+            public float EnableEngineDamageMaxPowerPercent;
             public Dictionary<string, VehicleConfig> Vehicles;
         }
         public struct VehicleConfig
