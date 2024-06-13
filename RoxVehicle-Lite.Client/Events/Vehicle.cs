@@ -14,8 +14,6 @@ using static CitizenFX.Core.Native.API;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-
-
 using RoxVehicle_Lite.Client;
 using static RoxVehicle_Lite.Client.Structs.VehicleStructs;
 using static RoxVehicle_Lite.Client.Functions.StriptFunctions;
@@ -102,7 +100,7 @@ namespace RoxVehicle_Lite.Client.Transmission
             float torque = CalculateTorque(rpmInternal, vehicleData.Engine.TorqueCurve);
             if (scriptConfig.EnableEngineDamageEffectsPower)
             {
-                float damageValue = Map(Math.Max(0.0f, GetVehicleEngineHealth(vehicle.Handle)), 0.0f, 1000.0f, scriptConfig.EnableEngineDamageMaxPowerPercent/100, 1.0f);
+                float damageValue = Map(Math.Max(0.0f, GetVehicleEngineHealth(vehicle.Handle)), 0.0f, 1000.0f, scriptConfig.EnableEngineDamageMinimumPercent/100, 1.0f);
                 torque = torque * damageValue;
             }
             int tuningLevel = GetVehicleMod(vehicle.Handle, 11);
@@ -114,7 +112,7 @@ namespace RoxVehicle_Lite.Client.Transmission
             }
             if (scriptConfig.EnableEngineEMSMods)
             {
-                torque = torque + (torque * tuningMultiplier);
+                torque = torque + (torque * (tuningMultiplier * vehicleData.Engine.EngineConfig.EngineModScale));
             }
             torque = torque + (torque * boost * 0.45f);
             if (scriptConfig.ElevationLoss)

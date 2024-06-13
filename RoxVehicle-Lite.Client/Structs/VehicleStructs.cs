@@ -17,7 +17,7 @@ namespace RoxVehicle_Lite.Client.Structs
             public bool DisableMuscleCarWheelie;
             public bool EnableEngineEMSMods;
             public bool EnableEngineDamageEffectsPower;
-            public float EnableEngineDamageMaxPowerPercent;
+            public float EnableEngineDamageMinimumPercent;
             public Dictionary<string, VehicleConfig> Vehicles;
         }
         public struct VehicleConfig
@@ -31,7 +31,7 @@ namespace RoxVehicle_Lite.Client.Structs
                 this.Transmission = Transmission;
                 this.Engine = Engine;
                 this.Turbo = Turbo;
-            }
+            } 
         }
         public struct Transmission
         { 
@@ -57,11 +57,13 @@ namespace RoxVehicle_Lite.Client.Structs
         }
         public struct EngineConfig
         { 
+            public float EngineModScale;
             public float MaxRPM;
             public float IdleRPM;
 
-            public EngineConfig(float MaxRPM, float IdleRPM)
+            public EngineConfig(float EngineModScale, float MaxRPM, float IdleRPM)
             {
+                this.EngineModScale = EngineModScale;
                 this.MaxRPM = MaxRPM;
                 this.IdleRPM = IdleRPM;
             }
