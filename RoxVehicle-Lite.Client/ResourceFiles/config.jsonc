@@ -5,6 +5,8 @@
     "EngineDisplay": true, // toggles a display that shows engine stats in bar form (hold left shift to get the values in numbers aswell)
     "DisableMuscleCarWheelie": true, // disables wheelies for muscle cars in this script
     "EnableEngineEMSMods": true, // enables the engine ems mods from actually effecting horsepower/torque
+    "EnableEngineDamageEffectsPower": true, // allows engine damage to effect vehicle power
+    "EnableEngineDamageMinimumPercent": 25, // minimum percentage when engine damage effecting power is enabled
     "Vehicles": {
         "BUFFALO4": {
             "Transmission": {
@@ -39,6 +41,7 @@
                     "6200": 598.6
                 },
                 "EngineConfig": {
+                    "EngineModScale": 1.0,
                     "MaxRPM": 6200,
                     "IdleRPM": 700
                 }
@@ -80,6 +83,7 @@
                     "6500": 667.3
                 },
                 "EngineConfig": {
+                    "EngineModScale": 1.0,
                     "MaxRPM": 6500,
                     "IdleRPM": 700
                 }
@@ -121,6 +125,7 @@
                     "6400": 520.8
                 },
                 "EngineConfig": {
+                    "EngineModScale": 1.0,
                     "MaxRPM": 6400,
                     "IdleRPM": 600
                 }
@@ -163,6 +168,7 @@
                     "7500": 192.7
                 },
                 "EngineConfig": {
+                    "EngineModScale": 1.0,
                     "MaxRPM": 7500,
                     "IdleRPM": 650
                 }
@@ -208,6 +214,7 @@
                     "3000": 0.0
                 },
                 "EngineConfig": {
+                    "EngineModScale": 1.0,
                     "MaxRPM": 2500,
                     "IdleRPM": 650
                 }
@@ -222,7 +229,7 @@
         "ELEGY2": {
             "Transmission": {
                 "Name": "",
-                "Description": "",
+                "Description": "", // unused
                 "GearRatios": [
                     -3.383,
                     4.056,
@@ -252,6 +259,7 @@
                     "7000": 323.2
                 },
                 "EngineConfig": {
+                    "EngineModScale": 1.0,
                     "MaxRPM": 7000,
                     "IdleRPM": 650
                 }
@@ -265,8 +273,8 @@
         },
         "RUINER4": {
             "Transmission": {
-                "Name": "",
-                "Description": "",
+                "Name": "", // unused
+                "Description": "", // unused
                 "GearRatios": [
                     -2.9,
                     2.66,
@@ -294,6 +302,7 @@
                     "6000": 256.1
                 },
                 "EngineConfig": {
+                    "EngineModScale": 1.0,
                     "MaxRPM": 6000,
                     "IdleRPM": 650
                 }
@@ -303,6 +312,192 @@
                 "MaxVacuum": 7.25,
                 "BoostRate": 0.5,
                 "VacuumRate": 3.0
+            }
+        },
+        "JESTER3": {
+            "Transmission": {
+                "Name": "1993 Supra A80 Transmission", // unused
+                "Description": "This transmission is based on the 1993 Toyota Supra A80 transmission", // unused
+                "GearRatios": [
+                    -3.267,
+                    3.827,
+                    2.36,
+                    1.685,
+                    1.313,
+                    1.0,
+                    0.793
+                ],
+                "TopSpeedMPH": 180
+            },
+            "Engine": {
+                "Name": "1993 Supra A80 2JZ-GTE Engine", // unused
+                "Description": "This engine is based on the 1993 Toyota Supra A80 2JZ-GTE engine", // unused
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 148.7,
+                    "1500": 223,
+                    "2000": 260.2,
+                    "2500": 282.4,
+                    "3000": 297.3,
+                    "3500": 308,
+                    "4000": 315.9,
+                    "4500": 322.1,
+                    "4800": 325.2,
+                    "5000": 324,
+                    "5500": 310.2,
+                    "6000": 285.2,
+                    "6500": 259.1,
+                    "6900": 212.3
+                },
+                "EngineConfig": {
+                    "EngineModScale": 1.0,
+                    "MaxRPM": 6900,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 30.0,
+                "MaxVacuum": 6.0,
+                "BoostRate": 0.7,
+                "VacuumRate": 2.0
+            }
+        },
+        "SULTANRS": {
+            "Transmission": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "GearRatios": [
+                    -3.431,
+                    3.357,
+                    2.18,
+                    1.424,
+                    1.0,
+                    0.753
+                ],
+                "TopSpeedMPH": 152
+            },
+            "Engine": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 103.7,
+                    "1500": 155.5,
+                    "2000": 181.4,
+                    "2500": 197,
+                    "3000": 207.4,
+                    "3500": 214.7,
+                    "3800": 218.3,
+                    "4000": 218.1,
+                    "4500": 215.5,
+                    "5000": 210.1,
+                    "5500": 201.8,
+                    "6000": 185.9,
+                    "6200": 171.2
+                },
+                "EngineConfig": {
+                    "EngineModScale": 1.0,
+                    "MaxRPM": 6200,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 30.0,
+                "MaxVacuum": 6.0,
+                "BoostRate": 0.6,
+                "VacuumRate": 2.5
+            }
+        },
+        "GAUNTLET3": {
+            "Transmission": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "GearRatios": [
+                    -2.57,
+                    2.44, 
+                    1.93,
+                    1.39,
+                    1.0
+                ],
+                "TopSpeedMPH": 116
+            },
+            "Engine": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 230.5,
+                    "1500": 345.6,
+                    "2000": 403.2,
+                    "2500": 437.8,
+                    "3000": 460.8,
+                    "3500": 477.4,
+                    "4000": 489.7,
+                    "4500": 478.9,
+                    "5000": 446.5,
+                    "5500": 405.9,
+                    "6000": 348.2,
+                    "6100": 329.4
+                },
+                "EngineConfig": {
+                    "EngineModScale": 1.0,
+                    "MaxRPM": 6100,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 14.5,
+                "MaxVacuum": 8.0,
+                "BoostRate": 0.7,
+                "VacuumRate": 2.0
+            }
+        },
+        "TERMINUS": {
+            "Transmission": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "GearRatios": [
+                    -3.317,
+                    4.714,
+                    3.143,
+                    2.106,
+                    1.667,
+                    1.285,
+                    1.0,
+                    0.839,
+                    0.667
+                ],
+                "TopSpeedMPH": 149
+            },
+            "Engine": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 218.4,
+                    "1500": 327.6,
+                    "2000": 382.2,
+                    "2500": 414.9,
+                    "3000": 436.7,
+                    "3500": 452.4,
+                    "4000": 464.1,
+                    "4500": 469,
+                    "5000": 459.9,
+                    "5500": 440.6,
+                    "6000": 411.4,
+                    "6400": 361
+                },
+                "EngineConfig": {
+                    "EngineModScale": 1.0,
+                    "MaxRPM": 6100,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 14.5,
+                "MaxVacuum": 8.0,
+                "BoostRate": 0.7,
+                "VacuumRate": 2.0
             }
         }
     }

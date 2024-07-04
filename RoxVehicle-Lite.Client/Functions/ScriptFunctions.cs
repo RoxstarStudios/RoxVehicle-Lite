@@ -11,11 +11,8 @@ using CitizenFX.Core.Native;
 using CitizenFX.Core.UI;
 using static CitizenFX.Core.Native.API;
 
-
-
 using RoxVehicle_Lite.Client;
 using static RoxVehicle_Lite.Client.Structs.VehicleStructs;
-
 
 namespace RoxVehicle_Lite.Client.Functions
 {
