@@ -451,6 +451,54 @@
                 "BoostRate": 0.7,
                 "VacuumRate": 2.0
             }
+        },
+        "TERMINUS": {
+            "Transmission": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "GearRatios": [
+                    -3.317,
+                    4.714,
+                    3.143,
+                    2.106,
+                    1.667,
+                    1.285,
+                    1.0,
+                    0.839,
+                    0.667
+                ],
+                "TopSpeedMPH": 149
+            },
+            "Engine": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 218.4,
+                    "1500": 327.6,
+                    "2000": 382.2,
+                    "2500": 414.9,
+                    "3000": 436.7,
+                    "3500": 452.4,
+                    "4000": 464.1,
+                    "4500": 469,
+                    "5000": 459.9,
+                    "5500": 440.6,
+                    "6000": 411.4,
+                    "6400": 361
+                },
+                "EngineConfig": {
+                    "EngineModScale": 1.0,
+                    "MaxRPM": 6100,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 14.5,
+                "MaxVacuum": 8.0,
+                "BoostRate": 0.7,
+                "VacuumRate": 2.0
+            }
         }
     }
 }
