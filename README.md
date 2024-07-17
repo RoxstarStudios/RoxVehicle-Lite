@@ -10,7 +10,7 @@
   - Custom and toggleable displays for elevation loss and engine horsepower, torque, boost and rpm 
   - Ability to adjust vehicle top speed to a mph number
   - Ability to disable engine EMS mods from effecting engine performance and a way to disable wheelies on muscle cars
-  - Custom turbo with adjustable vaccum, boost, and speed at which is builds boost and vacuum
+  - Custom turbo with adjustable vacuum, boost, and speed at which it builds boost and vacuum
 
 ## Developers
 RickyB505 

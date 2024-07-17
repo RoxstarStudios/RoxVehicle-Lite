@@ -499,6 +499,100 @@
                 "BoostRate": 0.7,
                 "VacuumRate": 2.0
             }
+        },
+        "ZR350": {
+            "Transmission": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "GearRatios": [
+                    -3.288,
+                    3.483,
+                    2.015,
+                    1.391,
+                    1.0,
+                    0.806
+                ],
+                "TopSpeedMPH": 157
+            },
+            "Engine": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000": 105.2,
+                    "1500": 157.9,
+                    "2000": 184.2,
+                    "2500": 200,
+                    "3000": 210.5,
+                    "3500": 218,
+                    "4000": 223.7,
+                    "4500": 228,
+                    "5000": 231.6,
+                    "5500": 230.6,
+                    "6000": 227.8,
+                    "6500": 223.2,
+                    "7000": 186.5
+                },
+                "EngineConfig": {
+                    "EngineModScale": 2.0,
+                    "MaxRPM": 7000,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 20.0,
+                "MaxVacuum": 6.0,
+                "BoostRate": 0.9,
+                "VacuumRate": 2.0
+            }
+        },
+        "ELEGY": {
+            "Transmission": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "GearRatios": [
+                    -3.369,
+                    3.214,
+                    1.925,
+                    1.302,
+                    1.0,
+                    0.752
+                ],
+                "TopSpeedMPH": 198
+            },
+            "Engine": {
+                "Name": "", // unused
+                "Description": "", // unused
+                "TorqueCurve": {
+                    "0": 0,
+                    "1000":125.7,
+                    "1500":188.6,
+                    "2000":220,
+                    "2500":238.8,
+                    "3000":251.4,
+                    "3500":260.4,
+                    "4000":267.1,
+                    "4500":271.3,
+                    "5000":267.8,
+                    "5500":259.2,
+                    "6000":241.8,
+                    "6500":223.2,
+                    "7000":207.2,
+                    "7500":193.4,
+                    "8000":163.2
+                },
+                "EngineConfig": {
+                    "EngineModScale": 1.5,
+                    "MaxRPM": 8000,
+                    "IdleRPM": 650
+                }
+            },
+            "Turbo": {
+                "MaxBoost": 30.0,
+                "MaxVacuum": 9.0,
+                "BoostRate": 0.7,
+                "VacuumRate": 2.0
+            }
         }
     }
 }
