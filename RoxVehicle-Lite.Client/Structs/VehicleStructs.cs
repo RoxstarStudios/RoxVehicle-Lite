@@ -11,6 +11,7 @@ namespace RoxVehicle_Lite.Client.Structs
         public struct Config
         {
             public bool ElevationLoss;
+            public bool ElevationLossOtherVehicles;
             public float ElevationLossPercentage;
             public bool ElevationLossDisplay;
             public bool EngineDisplay;
@@ -18,7 +19,35 @@ namespace RoxVehicle_Lite.Client.Structs
             public bool EnableEngineEMSMods;
             public bool EnableEngineDamageEffectsPower;
             public float EnableEngineDamageMinimumPercent;
+            public InversePower InversePower;
             public Dictionary<string, VehicleConfig> Vehicles;
+        }
+        public struct InversePower
+        { 
+            public bool enabled;
+            public float speedStart;
+            public float speedEnd;
+            public float speedStartTorqueMod;
+            public float angleStart;
+            public float angleEnd;
+            public float angleStartTorqueMod;
+            public float angleEndTorqueMod;
+            public bool carsOnly;
+            public List<int> classBlacklist;
+
+            public InversePower(bool enabled, float speedStart, float speedEnd, float speedStartTorqueMod, float angleStart, float angleEnd, float angleStartTorqueMod, float angleEndTorqueMod, bool carsOnly, List<int> classBlacklist)
+            {
+                this.enabled = enabled;
+                this.speedStart = speedStart;
+                this.speedEnd = speedEnd;
+                this.speedStartTorqueMod = speedStartTorqueMod;
+                this.angleStart = angleStart;
+                this.angleEnd = angleEnd;
+                this.angleStartTorqueMod = angleStartTorqueMod;
+                this.angleEndTorqueMod = angleEndTorqueMod;
+                this.carsOnly = carsOnly;
+                this.classBlacklist = classBlacklist;
+            } 
         }
         public struct VehicleConfig
         { 

@@ -29,10 +29,10 @@ namespace RoxVehicle_Lite.Client.Transmission
         public static Dictionary<uint, VehicleConfig> vehList = new();
         public static Config scriptConfig = JsonConvert.DeserializeObject<Config>(LoadResourceFile(GetCurrentResourceName(), "config.jsonc") ?? "{}");
         public static int lastGear = 0;
-        public static float maxHorsepower = 0.0f;
         public static float vehicleBoostLast = 0.0f;
-        public static float maxTorque = 0.0f;
         public static Vehicle lastVehicle = null;
+        public static float maxHorsepower = 0.0f;
+        public static float maxTorque = 0.0f;
 
         internal static Transmission Instance
         {
@@ -90,11 +90,39 @@ namespace RoxVehicle_Lite.Client.Transmission
                             lastVehicle = vehicle;
                         }
                     }
+                    else
+                    { // other vehicles thread
+                        if (scriptConfig.ElevationLossOtherVehicles)
+                        {
+                            ApplyOtherVehicles(vehicle);
+                        }
+                    }
                 }
             }
             await Task.FromResult(0);
         }
-        public static void ApplyEngine(Vehicle vehicle, VehicleConfig vehicleData, float boost)
+        public static void ApplyOtherVehicles(Vehicle vehicle)
+        {
+            if (scriptConfig.ElevationLoss)
+            {
+                Vector3 vehicleCoords = GetEntityCoords(vehicle.Handle, true);
+                float elevationLoss = Math.Min(1.0f, Map(GetEntityHeight(vehicle.Handle, vehicleCoords.X, vehicleCoords.Y, vehicleCoords.Z, true, true) * 3.28084f, 0.0f, 1000.0f, 0.0f, scriptConfig.ElevationLossPercentage/100));
+                if (scriptConfig.ElevationLossDisplay)
+                {
+                    float scale = 1.0f * ((scriptConfig.ElevationLossPercentage / 100) / 0.03f);
+                    DrawRect(0.1558f, 0.989f - 0.1753f / 2, 0.01f, 0.1753f, 10, 10, 10, 149);
+                    DrawRect(0.1558f, 0.989f - 0.1753f / 2, 0.005f, 0.1753f, 255, 255, 0, 80);
+                    DrawRect(0.1558f, 0.989f - Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)) / 2, 0.005f, Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)), 255, 255, 0, 140);
+                    if (IsControlPressed(0, 21))
+                    {
+                        DrawRect(0.1608f, 0.989f - Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)), 0.015f, 0.0025f, 255, 255, 255, 255);
+                        DrawTextOnScreen(0.1608f, 0.967f - Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)), Math.Round(elevationLoss * 100, 1) + "%", 0.35f, 255, 255, 255);
+                    }
+                }
+                SetVehicleCheatPowerIncrease(vehicle.Handle, 1.0f - (1.0f * elevationLoss));
+            }
+        }
+        public static float ApplyEngine(Vehicle vehicle, VehicleConfig vehicleData, float boost)
         {
             float rpmInternal = GetVehicleRPM(vehicle, vehicleData.Engine.EngineConfig.IdleRPM, vehicleData.Engine.EngineConfig.MaxRPM);
             float torque = CalculateTorque(rpmInternal, vehicleData.Engine.TorqueCurve);
@@ -146,6 +174,7 @@ namespace RoxVehicle_Lite.Client.Transmission
             {
                 EngineDisplay(vehicle, rpmInternal, torque, driveForce, boost, vehicleData);
             }
+            return torque;
         }
         void ApplyTransmission(Vehicle vehicle, Structs.VehicleStructs.Transmission transmissionData)
         {
@@ -166,6 +195,7 @@ namespace RoxVehicle_Lite.Client.Transmission
             float boost = lastBoost;
             if (IsToggleModOn(vehicle.Handle, 18))
             {
+                SetVehicleTurboPressure(vehicle.Handle, 0.0f);
                 float throttle = GetVehicleThrottleOffset(vehicle.Handle);
                 float timeStep = 0.015f;
                 float timeStepBoost = (timeStep * 2) * (realRPM / vehicleData.Engine.EngineConfig.MaxRPM);

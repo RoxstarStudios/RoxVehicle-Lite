@@ -20,6 +20,7 @@ namespace RoxVehicle_Lite.Client
         {
             Instance = this;
             _ = Transmission.Transmission.Instance;
+            _ = InversePower.InversePower.Instance;
         }
         internal dynamic GetGlobalState(string stateName)
         {
