@@ -20,6 +20,7 @@ namespace RoxVehicle_Lite.Client.Structs
             public bool EnableEngineDamageEffectsPower;
             public float EnableEngineDamageMinimumPercent;
             public InversePower InversePower;
+            public AntiLagSounds AntiLagSounds;
             public Dictionary<string, VehicleConfig> Vehicles;
         }
         public struct InversePower
@@ -54,12 +55,14 @@ namespace RoxVehicle_Lite.Client.Structs
             public Transmission Transmission;
             public Engine Engine;
             public Turbo Turbo;
+            public Turbo Turbo2;
 
-            public VehicleConfig(Transmission Transmission, Turbo Turbo, Engine Engine)
+            public VehicleConfig(Transmission Transmission, Turbo Turbo, Turbo Turbo2, Engine Engine)
             {
                 this.Transmission = Transmission;
                 this.Engine = Engine;
                 this.Turbo = Turbo;
+                this.Turbo2 = Turbo2;
             } 
         }
         public struct Transmission
@@ -103,13 +106,70 @@ namespace RoxVehicle_Lite.Client.Structs
             public float MaxVacuum;
             public float BoostRate;
             public float VacuumRate;
-
-            public Turbo(float MaxBoost, float MaxVacuum, float BoostRate, float VacuumRate)
+            public float RPMSpoolStart;
+            public float RPMSpoolEnd;
+            public float FalloffRPM;
+            public float FalloffBoost;
+            public bool IncreaseBoostToCounteractElevationLoss;
+            public TurboAntiLag AntiLag
+;
+            public Turbo(float MaxBoost, float MaxVacuum, float BoostRate, float VacuumRate, float RPMSpoolStart, float RPMSpoolEnd, float FalloffRPM, float FalloffBoost, bool IncreaseBoostToCounteractElevationLoss, TurboAntiLag AntiLag)
             {
                 this.MaxBoost = MaxBoost;
                 this.MaxVacuum = MaxVacuum;
                 this.BoostRate = BoostRate;
                 this.VacuumRate = VacuumRate;
+                this.RPMSpoolStart = RPMSpoolStart;
+                this.RPMSpoolEnd = RPMSpoolEnd;
+                this.FalloffBoost = FalloffBoost;
+                this.FalloffRPM = FalloffRPM;
+                this.IncreaseBoostToCounteractElevationLoss = IncreaseBoostToCounteractElevationLoss;
+                this.AntiLag = AntiLag;
+            }
+        }
+        public struct TurboAntiLag
+        { 
+            public bool Enable;
+            public float MinRPM;
+            public bool Effects;
+            public int RandomMs;
+            public int PeriodMs;
+            public int LoudOffThrottleIntervalMs;
+            public bool LoudOffThrottle;
+            public List<string> AntiLagSounds;
+
+            public TurboAntiLag(bool Enable, float MinRPM, bool Effects, int RandomMs, int PeriodMs, int LoudOffThrottleIntervalMs, bool LoudOffThrottle, List<string> AntiLagSounds)
+            {
+                this.Enable = Enable;
+                this.MinRPM = MinRPM;
+                this.Effects = Effects;
+                this.RandomMs = RandomMs;
+                this.PeriodMs = PeriodMs;
+                this.LoudOffThrottleIntervalMs = LoudOffThrottleIntervalMs;
+                this.LoudOffThrottle = LoudOffThrottle;
+                this.AntiLagSounds = AntiLagSounds;
+            }
+        }
+        public struct AntiLagSounds
+        { 
+            public List<string> RegisterSoundBank;
+            public Dictionary<string, ExaustPopSounds> ExaustPopSounds;
+
+            public AntiLagSounds(List<string> RegisterSoundBank, Dictionary<string, ExaustPopSounds> ExaustPopSounds)
+            {
+                this.RegisterSoundBank = RegisterSoundBank;
+                this.ExaustPopSounds = ExaustPopSounds;
+            }
+        }
+        public struct ExaustPopSounds
+        { 
+            public string SoundString;
+            public string Ref;
+
+            public ExaustPopSounds(string SoundString, string Ref)
+            {
+                this.SoundString = SoundString;
+                this.Ref = Ref;
             }
         }
     }

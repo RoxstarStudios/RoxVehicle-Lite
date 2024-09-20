@@ -19,6 +19,7 @@ using static RoxVehicle_Lite.Client.Structs.VehicleStructs;
 using static RoxVehicle_Lite.Client.Functions.StriptFunctions;
 using static RoxVehicle_Lite.Client.Main;
 using Vector3 = CitizenFX.Core.Vector3;
+using static RoxVehicle_Lite.Client.TurboFix.TurboFix;
 
 namespace RoxVehicle_Lite.Client.Transmission
 {
@@ -30,6 +31,7 @@ namespace RoxVehicle_Lite.Client.Transmission
         public static Config scriptConfig = JsonConvert.DeserializeObject<Config>(LoadResourceFile(GetCurrentResourceName(), "config.jsonc") ?? "{}");
         public static int lastGear = 0;
         public static float vehicleBoostLast = 0.0f;
+        public static float vehicleBoostLastT2 = 0.0f;
         public static Vehicle lastVehicle = null;
         public static float maxHorsepower = 0.0f;
         public static float maxTorque = 0.0f;
@@ -46,7 +48,12 @@ namespace RoxVehicle_Lite.Client.Transmission
         }
         private Transmission()
         {
+            foreach (string soundBank in scriptConfig.AntiLagSounds.RegisterSoundBank)
+            {
+                RequestScriptAudioBank(soundBank, true);
+            }
             Main.Instance.AttachTick(TransmissionHandler);
+            AddStateBagChangeHandler("EnableExaustPops", null, EnableExaustPops);
             foreach (var listValues in scriptConfig.Vehicles)
             {
                 if (!vehList.ContainsKey(Game.GenerateHashASCII(listValues.Key)))
@@ -69,9 +76,18 @@ namespace RoxVehicle_Lite.Client.Transmission
                         {
                             VehicleConfig vehicleData = vehList[modelhash];
                             float RPM = GetVehicleRPM(vehicle, vehicleData.Engine.EngineConfig.IdleRPM, vehicleData.Engine.EngineConfig.MaxRPM);
-                            float vehicleBoost = GetCustomTurboBoost(vehicle, vehicleData, vehicleBoostLast, RPM);
+                            float vehicleBoostT2 = 0.0f;
+                            if (vehicleData.Turbo2.MaxBoost > 0)
+                            {
+                                Tuple<float, float> turbo2Data = GetTurboBoost(vehicle, vehicleData, vehicleBoostLastT2 + vehicleBoostLast, RPM, true);
+                                vehicleBoostT2 = turbo2Data.Item1;
+                                vehicleBoostLastT2 = vehicleBoostT2;
+                            }
+                            Tuple<float, float> turboData = GetTurboBoost(vehicle, vehicleData, vehicleBoostLast, RPM);
+                            float vehicleBoost = turboData.Item1;
+                            await SetVehicleExaustPops(vehicle, false);
                             vehicleBoostLast = vehicleBoost;
-                            ApplyEngine(vehicle, vehicleData, vehicleBoost);
+                            float currentTorque = ApplyEngine(vehicle, vehicleData, vehicleBoost + vehicleBoostT2);
                             ApplyTransmission(vehicle, vehicleData.Transmission);
                             if (scriptConfig.DisableMuscleCarWheelie)
                             {
@@ -86,6 +102,7 @@ namespace RoxVehicle_Lite.Client.Transmission
                             lastGear = 0;
                             maxHorsepower = 0.0f;
                             vehicleBoostLast = 0.0f;
+                            vehicleBoostLastT2 = 0.0f;
                             maxTorque = 0.0f;
                             lastVehicle = vehicle;
                         }
@@ -110,9 +127,9 @@ namespace RoxVehicle_Lite.Client.Transmission
                 if (scriptConfig.ElevationLossDisplay)
                 {
                     float scale = 1.0f * ((scriptConfig.ElevationLossPercentage / 100) / 0.03f);
-                    DrawRect(0.1558f, 0.989f - 0.1753f / 2, 0.01f, 0.1753f, 10, 10, 10, 149);
-                    DrawRect(0.1558f, 0.989f - 0.1753f / 2, 0.005f, 0.1753f, 255, 255, 0, 80);
-                    DrawRect(0.1558f, 0.989f - Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)) / 2, 0.005f, Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)), 255, 255, 0, 140);
+                    DrawRect(0.1558f, 0.989f - (0.1753f / 2), 0.01f, 0.1753f, 10, 10, 10, 149);
+                    DrawRect(0.1558f, 0.989f - (0.1753f / 2), 0.005f, 0.1753f, 255, 255, 0, 80);
+                    DrawRect(0.1558f, 0.989f - (Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)) / 2), 0.005f, Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)), 255, 255, 0, 140);
                     if (IsControlPressed(0, 21))
                     {
                         DrawRect(0.1608f, 0.989f - Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)), 0.015f, 0.0025f, 255, 255, 255, 255);
@@ -150,9 +167,9 @@ namespace RoxVehicle_Lite.Client.Transmission
                 if (scriptConfig.ElevationLossDisplay)
                 {
                     float scale = 1.0f * ((scriptConfig.ElevationLossPercentage / 100) / 0.03f);
-                    DrawRect(0.1558f, 0.989f - 0.1753f / 2, 0.01f, 0.1753f, 10, 10, 10, 149);
-                    DrawRect(0.1558f, 0.989f - 0.1753f / 2, 0.005f, 0.1753f, 255, 255, 0, 80);
-                    DrawRect(0.1558f, 0.989f - Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)) / 2, 0.005f, Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)), 255, 255, 0, 140);
+                    DrawRect(0.1558f, 0.989f - (0.1753f / 2), 0.01f, 0.1753f, 10, 10, 10, 149);
+                    DrawRect(0.1558f, 0.989f - (0.1753f / 2), 0.005f, 0.1753f, 255, 255, 0, 80);
+                    DrawRect(0.1558f, 0.989f - (Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)) / 2), 0.005f, Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)), 255, 255, 0, 140);
                     if (IsControlPressed(0, 21))
                     {
                         DrawRect(0.1608f, 0.989f - Math.Max(0.0f, Math.Min(Map(elevationLoss, 0.0f, 0.25f * scale, 0.0f, 0.3f), 0.1753f)), 0.015f, 0.0025f, 255, 255, 255, 255);
@@ -190,63 +207,6 @@ namespace RoxVehicle_Lite.Client.Transmission
                 SetVehicleGearRatio(vehicle.Handle, i, transmissionData.GearRatios[i]);
             }
         }
-        public static float GetCustomTurboBoost(Vehicle vehicle, VehicleConfig vehicleData, float lastBoost, float realRPM)
-        {
-            float boost = lastBoost;
-            if (IsToggleModOn(vehicle.Handle, 18))
-            {
-                SetVehicleTurboPressure(vehicle.Handle, 0.0f);
-                float throttle = GetVehicleThrottleOffset(vehicle.Handle);
-                float timeStep = 0.015f;
-                float timeStepBoost = (timeStep * 2) * (realRPM / vehicleData.Engine.EngineConfig.MaxRPM);
-                float timeStepVacuum = 0.0065f;
-                float RPM = vehicle.CurrentRPM;
-                float maxBoost = vehicleData.Turbo.MaxBoost / 14.5038f;
-                float maxVacuum = vehicleData.Turbo.MaxVacuum / 14.5038f;
-                float boostRate = vehicleData.Turbo.BoostRate;
-                float vacuumRate = vehicleData.Turbo.VacuumRate;
-                int gear = vehicle.CurrentGear; 
-                if (gear != lastGear)
-                {
-                    if (lastBoost > 0.0f)
-                    {
-                        boost = lastBoost / 2f;
-                    }
-                    lastGear = gear;
-                }
-                throttle = Math.Abs(throttle);
-
-                if (RPM < 0.25f)
-                {
-                    throttle = 0.1f;
-                }
-
-                float desiredManifoldPressure = (maxBoost * -1) + throttle;
-                if (boost > desiredManifoldPressure && throttle < 1.0f)
-                {
-                    boost -= vacuumRate * timeStepVacuum;
-                    if (boost < (maxVacuum * -1))
-                    {
-                        boost = (maxVacuum * -1);
-                    }
-                }
-                else
-                {
-                    boost += boostRate * timeStepBoost;
-
-                    if (boost > maxBoost)
-                    {
-                        boost = maxBoost;
-                    }
-                }
-                lastGear = gear;
-            }
-            else
-            {
-                boost = 0f;
-            }
-            return boost;
-        }
         public static void EngineDisplay(Vehicle vehicle, float rpm, float torque, float driveForce, float vehicleBoost, VehicleConfig vehicleData)
         {
             float horsepower = torque * rpm / 5252;
@@ -264,8 +224,8 @@ namespace RoxVehicle_Lite.Client.Transmission
             DrawRect(0.08f, 0.802f, 0.14f, 0.004f, 0, 200, 0, 80);
             DrawRect(0.08f, 0.798f, 0.14f, 0.004f, 0, 100, 200, 80);
             DrawRect(0.08f, 0.794f, 0.14f, 0.004f, 200, 0, 0, 80);
-
-            float boostMeter = Math.Max(0.0f, Math.Min(0.14f, Map(vehicleBoost, 0.0f, vehicleData.Turbo.MaxBoost / 14.5038f, 0.0f, 0.14f)));
+            float turboMaxBoost = vehicleData.Turbo2.MaxBoost > 0 ? vehicleData.Turbo2.MaxBoost + vehicleData.Turbo.MaxBoost : vehicleData.Turbo.MaxBoost;
+            float boostMeter = Math.Max(0.0f, Math.Min(0.14f, Map(vehicleBoost, 0.0f, turboMaxBoost / 14.5038f, 0.0f, 0.14f)));
             float rpmMeter = Math.Max(0.0f, Math.Min(0.14f, Map(rpm, 0.0f, vehicleData.Engine.EngineConfig.MaxRPM, 0.0f, 0.14f)));
             float torqueMeter = Math.Max(0.0f, Math.Min(0.14f, Map(torque, 0.0f, maxTorque, 0.0f, 0.14f)));
             float horsepowerMeter = Math.Max(0.0f, Math.Min(0.14f, Map(horsepower, 0.0f, maxHorsepower, 0.0f, 0.14f)));
@@ -283,5 +243,18 @@ namespace RoxVehicle_Lite.Client.Transmission
                 DrawTextOnScreen(0.08f, 0.741f, "Horsepower: " + Math.Round(horsepower, 1), 0.4f, 200, 0, 0);
             }
         }
+        private async Task SetVehicleExaustPops(Vehicle vehicle, bool enabled)
+        {
+            while (vehicle.State.Get("EnableExaustPops") != null ? vehicle.State.Get("EnableExaustPops") != enabled.ToString() : true)
+            {
+                vehicle.State.Set("EnableExaustPops", enabled.ToString(), true);
+                await BaseScript.Delay(500);
+            }
+        }
+        private InputArgument EnableExaustPops = new Action<string, string, string>((bagName, key, value) =>
+        {
+            int vehicle = GetEntityFromStateBagName(bagName);
+            EnableVehicleExhaustPops(vehicle, value == "true");
+        });
     }
 }

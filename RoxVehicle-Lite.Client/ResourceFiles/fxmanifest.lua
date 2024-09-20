@@ -9,4 +9,10 @@ client_script 'Client/RoxVehicle-Lite.Client.net.dll'
 files {	
     'Client/*.dll',
     '*.jsonc',
+	'dlc_defaultantilag/AntiLagDefault.awc',
+	'data/defaultantilag.dat54.rel',
+	'data/defaultantilag.dat54.nametable',
 }   
+
+data_file "AUDIO_WAVEPACK" "dlc_defaultantilag"
+data_file "AUDIO_SOUNDDATA" "data/defaultantilag.dat"

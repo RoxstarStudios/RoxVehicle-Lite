@@ -17,7 +17,7 @@
 
         <Reference Include="Microsoft.CSharp" />
     
-        <PackageReference Include="CitizenFX.Core.Client" Version="1.0.8385">
+        <PackageReference Include="CitizenFX.Core.Client" Version="1.0.9517">
             <ExcludeAssets>runtime</ExcludeAssets>
         </PackageReference>
 
@@ -33,6 +33,15 @@
 		<None Update="ResourceFiles/fxmanifest.lua">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="ResourceFiles/dlc_defaultantilag/AntiLagDefault.awc">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="ResourceFiles/data/defaultantilag.dat54.nametable">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="ResourceFiles/data/defaultantilag.dat54.rel">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
     </ItemGroup>
 	<PropertyGroup>
 	<PostBuildEvent>
@@ -40,6 +49,11 @@
 		if not exist "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\Client\" mkdir "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\Client\"
 		xcopy /Y "$(SolutionDir)RoxVehicle-Lite.Build\Build\Client\net452\ResourceFiles\fxmanifest.lua" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\"
 		xcopy /Y "$(SolutionDir)RoxVehicle-Lite.Build\Build\Client\net452\ResourceFiles\config.jsonc" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\"
+		if not exist "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\dlc_defaultantilag\" mkdir "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\dlc_defaultantilag\"
+		xcopy /Y "$(SolutionDir)RoxVehicle-Lite.Build\Build\Client\net452\ResourceFiles\dlc_defaultantilag\AntiLagDefault.awc" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\dlc_defaultantilag"
+		if not exist "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\data\" mkdir "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\data\"
+		xcopy /Y "$(SolutionDir)RoxVehicle-Lite.Build\Build\Client\net452\ResourceFiles\data\defaultantilag.dat54.nametable" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\data"
+		xcopy /Y "$(SolutionDir)RoxVehicle-Lite.Build\Build\Client\net452\ResourceFiles\data\defaultantilag.dat54.rel" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\data"
 		xcopy /Y "$(SolutionDir)RoxVehicle-Lite.Build\Build\Client\net452\RoxVehicle-Lite.Client.net.dll" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\Client\"
 		xcopy /Y "$(SolutionDir)Dependencies\Newtonsoft.Json.dll" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\Client\"
 		xcopy /Y "$(SolutionDir)\LICENSE" "$(SolutionDir)RoxVehicle-Lite.Build\RoxVehicle-Lite\"
